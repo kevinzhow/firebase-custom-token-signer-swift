@@ -5,17 +5,24 @@ import PackageDescription
 
 let package = Package(
     name: "FirebaseCustomTokenSigner",
+    platforms:  [
+        .macOS(.v10_15),
+    ],
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "FirebaseCustomTokenSigner",
             targets: ["FirebaseCustomTokenSigner"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/vapor/jwt-kit.git", from: "4.0.0"),
+    ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "FirebaseCustomTokenSigner"),
+            name: "FirebaseCustomTokenSigner",
+             dependencies: [
+                .product(name: "JWTKit", package: "jwt-kit"),
+            ]
+        ),
         .testTarget(
             name: "FirebaseCustomTokenSignerTests",
             dependencies: ["FirebaseCustomTokenSigner"]),
