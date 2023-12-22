@@ -1,6 +1,6 @@
 # FirebaseCustomTokenSigner-Swift
 
-Firebase Custom Token Signer for Swift
+[Firebase Custom Token](https://firebase.google.com/docs/auth/admin/create-custom-tokens) Signer for Swift
 
 ## Usage
 
