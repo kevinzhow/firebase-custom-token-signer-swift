@@ -17,7 +17,7 @@ struct FireabseUserPayload: JWTPayload {
     var audience: AudienceClaim
     var subject: SubjectClaim
     var expiration: ExpirationClaim
-    var claims: [String: String] = [:]
+    var claims: ClaimValueDictionary
     var uid: String
     
     func verify(using signer: JWTSigner) throws {
@@ -29,7 +29,7 @@ struct FireabseUserPayload: JWTPayload {
         audience: AudienceClaim = AudienceClaim(value: "https://identitytoolkit.googleapis.com/google.identity.identitytoolkit.v1.IdentityToolkit"),
         subject: SubjectClaim,
         expiration: ExpirationClaim = ExpirationClaim(value: Date().addingTimeInterval(3600)),
-        claims: [String: String] = ["premium_account": "true"],
+        claims: ClaimValueDictionary?,
         uid: String,
         issuedAt: IssuedAtClaim = IssuedAtClaim(value: Date())
     ) {
@@ -38,7 +38,7 @@ struct FireabseUserPayload: JWTPayload {
         self.audience = audience
         self.issuedAt = issuedAt
         self.expiration = expiration
-        self.claims = claims
+        self.claims = claims ?? [:]
         self.uid = uid
     }
 }
