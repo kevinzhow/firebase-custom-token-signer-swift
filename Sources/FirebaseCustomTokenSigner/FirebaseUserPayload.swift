@@ -1,7 +1,7 @@
 import Foundation
 import JWTKit
 
-struct FireabseUserPayload: JWTPayload {
+public struct FireabseUserPayload: JWTPayload {
     enum CodingKeys: String, CodingKey {
         case issuedAt = "iat"
         case issuer = "iss"
@@ -12,15 +12,15 @@ struct FireabseUserPayload: JWTPayload {
         case uid = "uid"
     }
     
-    var issuedAt: IssuedAtClaim
-    var issuer: IssuerClaim
-    var audience: AudienceClaim
-    var subject: SubjectClaim
-    var expiration: ExpirationClaim
-    var claims: ClaimValueDictionary
-    var uid: String
+    public var issuedAt: IssuedAtClaim
+    public var issuer: IssuerClaim
+    public var audience: AudienceClaim
+    public var subject: SubjectClaim
+    public var expiration: ExpirationClaim
+    public var claims: ClaimValueDictionary
+    public var uid: String
     
-    func verify(using signer: JWTSigner) throws {
+    public func verify(using signer: JWTSigner) throws {
         try self.expiration.verifyNotExpired()
     }
     

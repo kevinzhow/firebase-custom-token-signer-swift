@@ -37,7 +37,7 @@ qXrIx5o0xevfOYFMfA2YMhPa
 -----END PRIVATE KEY-----
 """
 
-        let signer = FirebaseCustomTokenSigner(
+        let signer = try FirebaseCustomTokenSigner(
             serviceAccountEmail: "demo@google.com",
             serviceAccountPrivateKey: demoPrivateKey
         )
@@ -48,5 +48,10 @@ qXrIx5o0xevfOYFMfA2YMhPa
         )
 
         print(token)
+
+        let payload = try signer.verify(token: token)
+
+        print("payload: \(payload)")
+        
     }
 }
