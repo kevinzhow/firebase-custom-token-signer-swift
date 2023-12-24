@@ -15,6 +15,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/vapor/jwt-kit.git", from: "4.0.0"),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0"),
     ],
     targets: [
         .target(
@@ -23,6 +24,13 @@ let package = Package(
                 .product(name: "JWTKit", package: "jwt-kit"),
             ]
         ),
+        .executableTarget(
+            name: "FirebaseCustomTokenSignerCLI",
+            dependencies: [
+                "FirebaseCustomTokenSigner",
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
+            ],
+            path: "Sources/FirebaseCustomTokenSignerCLI"),
         .testTarget(
             name: "FirebaseCustomTokenSignerTests",
             dependencies: ["FirebaseCustomTokenSigner"],

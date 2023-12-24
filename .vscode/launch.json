@@ -1,0 +1,28 @@
+{
+  "configurations": [
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": [
+        "swift"
+      ],
+      "args": [],
+      "cwd": "${workspaceFolder:firebase-custom-token-signer-swift}",
+      "name": "Debug FirebaseCustomTokenSignerCLI",
+      "program": "${workspaceFolder:firebase-custom-token-signer-swift}/.build/debug/FirebaseCustomTokenSignerCLI",
+      "preLaunchTask": "swift: Build Debug FirebaseCustomTokenSignerCLI"
+    },
+    {
+      "type": "lldb",
+      "request": "launch",
+      "sourceLanguages": [
+        "swift"
+      ],
+      "args": [],
+      "cwd": "${workspaceFolder:firebase-custom-token-signer-swift}",
+      "name": "Release FirebaseCustomTokenSignerCLI",
+      "program": "${workspaceFolder:firebase-custom-token-signer-swift}/.build/release/FirebaseCustomTokenSignerCLI",
+      "preLaunchTask": "swift: Build Release FirebaseCustomTokenSignerCLI"
+    }
+  ]
+}
