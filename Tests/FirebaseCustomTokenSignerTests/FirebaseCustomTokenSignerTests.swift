@@ -47,11 +47,13 @@ qXrIx5o0xevfOYFMfA2YMhPa
             customClaims: ["premium_account": ClaimValue.bool(true)]
         )
 
-        print(token)
-
         let payload = try signer.verify(token: token)
+        let idClaim = payload.claims["premium_account"]!
 
-        print("payload: \(payload)")
-        
+        if let premium = idClaim.getValue() as? Bool {
+            XCTAssertEqual(true, premium)
+        } else {
+            XCTFail()
+        }
     }
 }

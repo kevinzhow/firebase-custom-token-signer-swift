@@ -33,6 +33,17 @@ public enum ClaimValue: Codable {
             try container.encode(boolValue)
         }
     }
+
+    public func getValue() -> Any {
+        switch self {
+        case .string(let value):
+            return value
+        case .int(let value):
+            return value
+        case .bool(let value):
+            return value
+        }
+    }
 }
 
 public typealias ClaimValueDictionary = [String: ClaimValue]
