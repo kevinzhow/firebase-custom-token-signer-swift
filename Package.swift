@@ -25,6 +25,9 @@ let package = Package(
         ),
         .testTarget(
             name: "FirebaseCustomTokenSignerTests",
-            dependencies: ["FirebaseCustomTokenSigner"]),
+            dependencies: ["FirebaseCustomTokenSigner"],
+            resources: [
+                .copy("Resources/test.json"),
+            ]),
     ]
 )

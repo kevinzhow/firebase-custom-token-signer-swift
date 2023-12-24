@@ -1,4 +1,5 @@
 import JWTKit
+import Foundation
 
 public struct FirebaseCustomTokenSigner {
     let serviceAccountEmail: String
@@ -6,7 +7,17 @@ public struct FirebaseCustomTokenSigner {
     
     let signer: JWTSigner
 
-    init(serviceAccountEmail: String, serviceAccountPrivateKey: String) throws {
+    public init(fromServiceAccountFilePath path: String) throws {
+        let fileManager = FileManager.default
+        guard fileManager.fileExists(atPath: path) else {
+            throw NSError(domain: "FirebaseCustomTokenSigner", code: 1, userInfo: [NSLocalizedDescriptionKey: "File not found at path \(path)"])
+        }
+        let data = fileManager.contents(atPath: path)!
+        let serviceAccount = try JSONDecoder().decode(ServiceAccount.self, from: data)
+        try self.init(serviceAccountEmail: serviceAccount.clientEmail, serviceAccountPrivateKey: serviceAccount.privateKey)
+    }
+
+    public init(serviceAccountEmail: String, serviceAccountPrivateKey: String) throws {
         self.serviceAccountEmail = serviceAccountEmail
         self.serviceAccountPrivateKey = serviceAccountPrivateKey
         self.signer = JWTSigner.rs256(key: try .private(pem: serviceAccountPrivateKey.data(using: .utf8)!))

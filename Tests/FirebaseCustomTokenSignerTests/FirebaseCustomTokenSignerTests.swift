@@ -56,4 +56,25 @@ qXrIx5o0xevfOYFMfA2YMhPa
             XCTFail()
         }
     }
+
+    func testSignWithServiceAccountJSONFile() throws {
+
+        let serviceAccountJSONFilePath = Bundle.module.path(forResource: "test", ofType: "json")!
+
+        let signer = try FirebaseCustomTokenSigner(fromServiceAccountFilePath: serviceAccountJSONFilePath)
+
+        let token = try signer.createCustomToken(
+            uid: "1234567890",
+            customClaims: ["premium_account": ClaimValue.bool(true)]
+        )
+
+        let payload = try signer.verify(token: token)
+        let idClaim = payload.claims["premium_account"]!
+
+        if let premium = idClaim.getValue() as? Bool {
+            XCTAssertEqual(true, premium)
+        } else {
+            XCTFail()
+        }
+    }
 }
