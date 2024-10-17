@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "FirebaseCustomTokenSigner",
     platforms:  [
-        .macOS(.v10_15),
+        .macOS(.v13),
     ],
     products: [
         .library(
@@ -14,7 +14,7 @@ let package = Package(
             targets: ["FirebaseCustomTokenSigner"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/vapor/jwt-kit.git", from: "4.0.0"),
+        .package(url: "https://github.com/vapor/jwt-kit.git", from: "5.0.0"),
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.0.0"),
     ],
     targets: [

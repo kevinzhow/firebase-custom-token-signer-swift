@@ -3,7 +3,7 @@ import JWTKit
 @testable import FirebaseCustomTokenSigner
 
 final class FirebaseCustomTokenSignerTests: XCTestCase {
-    func testSign() throws {
+    func testSign() async throws {
 
         let demoPrivateKey = 
 """
@@ -37,17 +37,17 @@ qXrIx5o0xevfOYFMfA2YMhPa
 -----END PRIVATE KEY-----
 """
 
-        let signer = try FirebaseCustomTokenSigner(
+        let signer = try await FirebaseCustomTokenSigner(
             serviceAccountEmail: "demo@google.com",
             serviceAccountPrivateKey: demoPrivateKey
         )
 
-        let token = try signer.createCustomToken(
+        let token = try await signer.createCustomToken(
             uid: "1234567890",
             customClaims: ["premium_account": ClaimValue.bool(true)]
         )
 
-        let payload = try signer.verify(token: token)
+        let payload = try await signer.verify(token: token)
         let idClaim = payload.claims["premium_account"]!
 
         if let premium = idClaim.getValue() as? Bool {
@@ -57,18 +57,18 @@ qXrIx5o0xevfOYFMfA2YMhPa
         }
     }
 
-    func testSignWithServiceAccountJSONFile() throws {
+    func testSignWithServiceAccountJSONFile() async throws {
 
         let serviceAccountJSONFilePath = Bundle.module.path(forResource: "test", ofType: "json")!
 
-        let signer = try FirebaseCustomTokenSigner(fromServiceAccountFilePath: serviceAccountJSONFilePath)
+        let signer = try await FirebaseCustomTokenSigner(fromServiceAccountFilePath: serviceAccountJSONFilePath)
 
-        let token = try signer.createCustomToken(
+        let token = try await signer.createCustomToken(
             uid: "1234567890",
             customClaims: ["premium_account": ClaimValue.bool(true)]
         )
 
-        let payload = try signer.verify(token: token)
+        let payload = try await signer.verify(token: token)
         let idClaim = payload.claims["premium_account"]!
 
         if let premium = idClaim.getValue() as? Bool {

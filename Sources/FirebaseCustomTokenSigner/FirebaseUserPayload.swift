@@ -20,7 +20,7 @@ public struct FireabseUserPayload: JWTPayload {
     public var claims: ClaimValueDictionary
     public var uid: String
     
-    public func verify(using signer: JWTSigner) throws {
+    public func verify(using algorithm: some JWTAlgorithm) async throws {
         try self.expiration.verifyNotExpired()
     }
     

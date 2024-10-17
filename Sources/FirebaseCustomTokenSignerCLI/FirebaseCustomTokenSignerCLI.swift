@@ -9,10 +9,10 @@ struct FirebaseCustomTokenSignerCLI: ParsableCommand {
     @Option(name: .shortAndLong, help: "Firebase Service account file path")
     public var serviceAccountFilePath: String
 
-    public func run() throws{
-        let signer = try FirebaseCustomTokenSigner(fromServiceAccountFilePath: serviceAccountFilePath)
+    public func run() async throws{
+        let signer = try await FirebaseCustomTokenSigner(fromServiceAccountFilePath: serviceAccountFilePath)
 
-        let token = try signer.createCustomToken(
+        let token = try await signer.createCustomToken(
             uid: uid
         )
 
